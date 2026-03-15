@@ -8,10 +8,11 @@ import io
 # إعداد شكل الصفحة
 st.set_page_config(page_title="نظام إصدار الشهادات", page_icon="🎓", layout="centered")
 
-st.title("🎓 بوابة الاستعلام وإصدار الشهادات")
-st.write("أهلاً بك، الرجاء إدخال رقم الهوية لتحميل شهاداتك بصيغة PDF.")
-st.markdown("---")
+# تنسيق العنوان الرئيسي وتوسيطه
+st.markdown("<h3 style='text-align: center; color: #003366;'>  خدمة إصدار شهادات اللقاءات الرمضانية في التقويم المدرسي</h3>", unsafe_allow_html=True)
 
+# تنسيق النص الترحيبي وتوسيطه
+st.markdown("<p style='text-align: center; font-size: 18px;'> الرجاء إدخال رقم الهوية وتحميل شهاداتك</p>", unsafe_allow_html=True)
 # دالة إصلاح النص العربي للصور
 def fix_arabic(text):
     reshaped_text = arabic_reshaper.reshape(str(text))
@@ -23,9 +24,10 @@ def load_data():
 
 try:
     df = load_data()
-    user_id = st.text_input("رقم الهوية:", placeholder="أدخل رقم الهوية المكون من 10 أرقام...")
+    user_id = st.text_input(" ", placeholder="أدخل رقم الهوية المكون من 10 أرقام...")
     
     if st.button("🔍 البحث عن الشهادات"):
+    
         if user_id:
             result = df[df['id'].astype(str) == str(user_id)]
             count = len(result)
@@ -53,9 +55,23 @@ try:
                     date_text = fix_arabic(date_val)
                     
                     # 4. كتابة النصوص على الصورة (الإحداثيات X و Y)
-                    # ⚠️ ملاحظة: ستحتاج لتغيير هذه الأرقام (X, Y) لتناسب أماكن الفراغات في صورتك
-                    draw.text((785, 470), name_text, font=font_large, fill=(0, 0, 0)) # الاسم
-                    draw.text((420, 480), id_text, font=font_small, fill=(0, 0, 0))   # الهوية
+                    # --- التعديل الجديد لحل مشكلة الأسماء الطويلة ---
+
+                    # 1. ضع هنا إحداثي X الثابت الذي يقع "مباشرة" على يسار كلمة (الأستاذ/ة :)
+                    fixed_right_x = 1100 # (قم بتغيير هذا الرقم ليكون بجوار النقطتين الرأسيتين تماماً)
+                    y_position = 470    # (ضع هنا إحداثي Y الخاص بالاسم كما كان لديك سابقاً)
+
+                    # 2. أمر يجعل بايثون يقيس عرض الاسم بالبيكسل قبل طباعته
+                    text_width = font_large.getlength(name_text)
+
+                    # 3. حساب نقطة البداية الجديدة (نطرح عرض النص من النقطة الثابتة)
+                    start_x = fixed_right_x - text_width
+
+                    # 4. طباعة الاسم باستخدام نقطة البداية الجديدة
+                    draw.text((start_x, y_position), name_text, font=font_large, fill=(0, 51, 102))
+
+                    # ------------------------------------------------
+                    draw.text((340, 480), id_text, font=font_small, fill=(0, 0, 0))   # الهوية
                     draw.text((1300, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
                     draw.text((1080, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
                     # 5. تحويل الصورة إلى ملف PDF في الذاكرة
