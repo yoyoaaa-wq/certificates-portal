@@ -54,10 +54,10 @@ try:
                     
                     # 4. كتابة النصوص على الصورة (الإحداثيات X و Y)
                     # ⚠️ ملاحظة: ستحتاج لتغيير هذه الأرقام (X, Y) لتناسب أماكن الفراغات في صورتك
-                    draw.text((950, 470), name_text, font=font_large, fill=(0, 0, 0)) # الاسم
+                    draw.text((785, 470), name_text, font=font_large, fill=(0, 0, 0)) # الاسم
                     draw.text((420, 480), id_text, font=font_small, fill=(0, 0, 0))   # الهوية
-                    draw.text((1340, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
-                    draw.text((1100, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
+                    draw.text((1300, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
+                    draw.text((1080, 810), date_text, font=font_small, fill=(0, 0, 0)) # التاريخ
                     # 5. تحويل الصورة إلى ملف PDF في الذاكرة
                     pdf_buffer = io.BytesIO()
 
