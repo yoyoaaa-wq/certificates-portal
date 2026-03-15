@@ -1,0 +1,6 @@
+streamlit
+pandas
+openpyxl
+Pillow
+arabic-reshaper
+python-bidi
