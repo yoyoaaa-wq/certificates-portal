@@ -7,6 +7,9 @@ import io
 
 # إعداد شكل الصفحة
 st.set_page_config(page_title="نظام إصدار الشهادات", page_icon="🎓", layout="centered")
+# تفعيل وضع الصيانة
+st.warning("🚧الصفحة قيد الصيانة...سنعود قريباً")
+st.stop() # هذا الأمر يمنع بايثون من قراءة أو تشغيل باقي الكود!
 
 # تنسيق العنوان الرئيسي وتوسيطه
 st.markdown("<h3 style='text-align: center; color: #003366;'>  خدمة إصدار شهادات اللقاءات الرمضانية في التقويم المدرسي</h3>", unsafe_allow_html=True)
